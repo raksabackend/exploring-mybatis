@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Todo List</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/styles.css}">
+    <link rel="icon" th:href="@{/book.ico}" type="image/x-icon" />
+</head>
+<body>
+<div class="container">
+    <h1>Todo List</h1>
+    <table border="1">
+        <thead>
+        <tr>
+            <th>Task</th>
+            <th>Description</th>
+            <th>Completed</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="todo : ${todos}">
+            <td th:text="${todo.task}">Task Name</td>
+            <td th:text="${todo.description}">Task Description</td>
+            <td th:text="${todo.completed} ? 'Yes' : 'No'">Completed Status</td>
+            <td>
+                <button class="edit-button" th:onclick="'editTask(' + ${todo.id} + ')'">Edit</button>
+                <!-- Delete button -->
+                <button class="delete-button" th:onclick="'deleteTask(' + ${todo.id} + ')'">Delete</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
