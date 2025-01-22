@@ -34,4 +34,11 @@ public class TodoController {
         return "home";
     }
 
+    @DeleteMapping("/{id}")
+    public String delete (@PathVariable int id){
+        todoMapper.delete((long) id);
+        System.out.println("Task has been deleted");
+        return "home";
+    }
+
 }
