@@ -1,24 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.todolist.mapper.TodoMapper">
+
     <insert id="insert" parameterType="com.example.todolist.model.Todo">
         INSERT INTO todo (task, description, completed)
         VALUES (#{task}, #{description}, #{completed})
     </insert>
-
     <update id="update" parameterType="com.example.todolist.model.Todo">
         UPDATE todo
         SET task = #{task}, description = #{description}, completed = #{completed}
         WHERE id = #{id}
     </update>
-
     <delete id="delete" parameterType="long">
         DELETE FROM todo WHERE id = #{id}
     </delete>
-
     <select id="findById" parameterType="long" resultType="com.example.todolist.model.Todo">
         SELECT * FROM todo WHERE id = #{id}
     </select>
-
     <select id="findAll" resultType="com.example.todolist.model.Todo">
         SELECT * FROM todo
     </select>
+
 </mapper>
