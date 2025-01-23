@@ -3,13 +3,13 @@ package com.example.todolist.controller;
 import com.example.todolist.mapper.TodoMapper;
 import com.example.todolist.model.Todo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController // For normal REST API
+//@Controller //for thymeleaf mvc
 @RequestMapping("/todo")
 public class TodoController {
 
@@ -27,6 +27,13 @@ public class TodoController {
         return "home";
     }
 
+    @GetMapping("/{id}")
+    public Todo findById(@PathVariable int id){
+        Todo todo = todoMapper.findById(Long.valueOf(id));
+        System.out.println("Here is your todo item.");
+        return todo;
+    }
+
     @PostMapping
     public String addTodo(@ModelAttribute Todo todo){
         todoMapper.insert(todo);
@@ -37,8 +44,14 @@ public class TodoController {
     @DeleteMapping("/{id}")
     public String delete (@PathVariable int id){
         todoMapper.delete((long) id);
-        System.out.println("Task has been deleted");
+        System.out.println("Task has been deleted.");
         return "home";
+    }
+
+    @PutMapping("/update/{id}")
+    public void update ( @PathVariable Long id, @ModelAttribute Todo updatedTodo){
+        todoMapper.update(updatedTodo); // Ensure your mapper method is implemented correctly
+        System.out.println("Task has been updated.");
     }
 
 }

@@ -50,7 +50,60 @@
                 .catch(error => console.error('Error:', error));
         }
     }
+
+    function editTask(id) {
+        // Fetch the current task details
+        fetch('/todo/' + id, {
+        })
+            .then(response => response.json())
+            .then(task => {
+
+                document.getElementById('editTaskInput').value = task.;
+                document.getElementById('editForm').style.display = 'block';
+
+                // Set up save button click event
+                document.getElementById('saveButton').onclick = function() {
+                    saveTask(id);
+                };
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    function saveTask(id) {
+        const updatedTask = {
+            task: document.getElementById('editTaskInput').value
+        };
+
+        fetch('/todo/' + id, {
+            method: 'PATCH', // Use PUT or PATCH depending on your API design
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updatedTask)
+        })
+            .then(response => {
+                if (response.ok) {
+                    location.reload(); // Reloads the page to reflect changes
+                } else {
+                    alert('Failed to update task.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    function cancelEdit() {
+        document.getElementById('editForm').style.display = 'none'; // Hide edit form
+    }
+
 </script>
 
+
+<!-- Edit Form -->
+<div id="editForm" style="display:none;">
+    <h2>Edit Task</h2>
+    <input type="text" id="editTaskInput" />
+    <button id="saveButton">Save</button>
+    <button onclick="cancelEdit()">Cancel</button>
+</div>
 
 </html>
