@@ -7,9 +7,9 @@
         INSERT INTO todo (task, description, completed)
         VALUES (#{task}, #{description}, #{completed})
     </insert>
-    <update id="update" parameterType="com.example.todolist.model.Todo">
+    <update id="update" parameterType="map">
         UPDATE todo
-        SET task = #{task}, description = #{description}, completed = #{completed}
+        SET task = #{todo.task}, description = #{todo.description}, completed = #{todo.completed}
         WHERE id = #{id}
     </update>
     <delete id="delete" parameterType="long">

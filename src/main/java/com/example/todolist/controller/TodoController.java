@@ -29,6 +29,9 @@ public class TodoController {
 
     @GetMapping("/{id}")
     public Todo findById(@PathVariable int id){
+        if( id <= 0 ) {
+            throw new RuntimeException("Invalid Id");
+        }
         Todo todo = todoMapper.findById(Long.valueOf(id));
         System.out.println("Here is your todo item.");
         return todo;
@@ -43,6 +46,9 @@ public class TodoController {
 
     @DeleteMapping("/{id}")
     public String delete (@PathVariable int id){
+        if( id <= 0 ) {
+            throw new RuntimeException("Invalid Id");
+        }
         todoMapper.delete((long) id);
         System.out.println("Task has been deleted.");
         return "home";
@@ -50,7 +56,10 @@ public class TodoController {
 
     @PutMapping("/update/{id}")
     public void update ( @PathVariable Long id, @ModelAttribute Todo updatedTodo){
-        todoMapper.update(updatedTodo); // Ensure your mapper method is implemented correctly
+        if(id == null || id <= 0 ) {
+            throw new RuntimeException("Invalid Id");
+        }
+        todoMapper.update(id,updatedTodo); // Ensure your mapper method is implemented correctly
         System.out.println("Task has been updated.");
     }
 
