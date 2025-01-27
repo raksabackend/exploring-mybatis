@@ -11,5 +11,9 @@ public interface TodoMapper {
     void delete(Long id);
     Todo findById(Long id);
     List<Todo> findAll();
+
+    //New method to find todos by userID
+    //Param has to match with xml
+    List<Todo> findByUserId(@Param("userId") Long userId);
 }
 

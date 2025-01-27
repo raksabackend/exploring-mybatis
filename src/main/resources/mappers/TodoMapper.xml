@@ -18,8 +18,13 @@
     <select id="findById" parameterType="long" resultType="com.example.todolist.model.Todo">
         SELECT * FROM todo WHERE id = #{id}
     </select>
+
     <select id="findAll" resultType="com.example.todolist.model.Todo">
         SELECT * FROM todo
+    </select>
+
+    <select id="findByUserId" parameterMap="long" resultType="com.example.todolist.model.Todo">
+        SELECT * FROM todo WHERE user_id = #{userId}
     </select>
 
 </mapper>

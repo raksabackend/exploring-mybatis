@@ -1,19 +1,24 @@
 package com.example.todolist.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
+import org.apache.catalina.User;
 
-    @Entity
-    public class Todo {
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long id;
+@Entity
+public class Todo {
 
-        private String task;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-        private String description;
+    private String task;
+
+    private String description;
+
+    @ManyToOne
+    @JoinColumn(name = "userEntity_id", nullable = false)
+    @JsonBackReference
+    private UserEntity user;
 
     public Long getId() {
         return id;
@@ -25,6 +30,14 @@ import jakarta.persistence.Id;
 
     public String getTask() {
         return task;
+    }
+
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 
     public void setTask(String task) {

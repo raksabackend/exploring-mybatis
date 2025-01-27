@@ -37,6 +37,16 @@ public class TodoController {
         return todo;
     }
 
+    @GetMapping("/findtodobyuserId/{userId}")
+    public List<Todo> findByUserId(@PathVariable Long userId){
+        if( userId <= 0 ) {
+            throw new RuntimeException("Invalid Id");
+        }
+        List<Todo> todos = todoMapper.findByUserId(Long.valueOf(userId));
+        System.out.println("Here are the todos for this user");
+        return todos;
+    }
+
     @PostMapping
     public String addTodo(@ModelAttribute Todo todo){
         todoMapper.insert(todo);
