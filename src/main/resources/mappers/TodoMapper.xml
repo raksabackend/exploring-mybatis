@@ -23,8 +23,8 @@
         SELECT * FROM todo
     </select>
 
-    <select id="findByUserId" parameterMap="long" resultType="com.example.todolist.model.Todo">
-        SELECT * FROM todo WHERE user_id = #{userId}
+    <select id="findByUserId" parameterType="long" resultType="com.example.todolist.model.Todo">
+        SELECT * FROM todo WHERE user_entity_id = #{userId}
     </select>
 
 </mapper>
